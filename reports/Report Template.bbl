@@ -1,0 +1,25 @@
+\begin{thebibliography}{1}
+
+\bibitem{WHO_2010_1}
+``What is a pandemic?.''
+  \url{https://www.who.int/csr/disease/swineflu/frequently_asked_questions/pandemic/en/},
+  Feb 2010.
+\newblock Accessed: 20 May 2020.
+
+\bibitem{WHO_2011}
+H.~Kelly, ``The classical definition of a pandemic is not elusive,'' {\em
+  Bulletin of the World Health Organization}, vol.~89, pp.~540--541, 2011.
+\newblock Accessed: 20 May 2020.
+
+\bibitem{scharnhorst2012models}
+A.~Scharnhorst, K.~B{\"o}rner, and P.~van~den Besselaar, {\em Models of science
+  dynamics: Encounters between complexity theory and information sciences}.
+\newblock Springer Science \& Business Media, 2012.
+
+\bibitem{kermack1927contribution}
+W.~O. Kermack and A.~G. McKendrick, ``A contribution to the mathematical theory
+  of epidemics,'' {\em Proceedings of the royal society of london. Series A,
+  Containing papers of a mathematical and physical character}, vol.~115,
+  no.~772, pp.~700--721, 1927.
+
+\end{thebibliography}
