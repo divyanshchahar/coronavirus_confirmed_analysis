@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.5.15)  24 MAY 2020 17:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.5.15)  24 MAY 2020 22:41
 entering extended mode
 **"./Report Template.tex"
 ("Report Template.tex"
@@ -727,7 +727,7 @@ Package rerunfilecheck Info: File `"Report Template".out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  9380 strings out of 492483
- 141920 string characters out of 3131039
+ 142074 string characters out of 3131039
  268687 words of memory out of 3000000
  13507 multiletter control sequences out of 15000+200000
  10296 words of font info for 37 fonts, out of 3000000 for 9000
@@ -742,7 +742,7 @@ nts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
 sfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/c
 m/cmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti12.
 pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on "Report Template.pdf" (10 pages, 303671 bytes).
+Output written on "Report Template.pdf" (10 pages, 298583 bytes).
 PDF statistics:
  494 PDF objects out of 1000 (max. 8388607)
  31 named destinations out of 1000 (max. 500000)
