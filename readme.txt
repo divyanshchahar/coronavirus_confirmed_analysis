@@ -1,4 +1,4 @@
-This project is forst in a series of projects which works with coronavirus database
+This project is first in a series of projects which works with coronavirus database
 
 
 __________________________________________ABOUT THIS PROJECT_____________________________________
