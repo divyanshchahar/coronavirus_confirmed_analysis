@@ -3,7 +3,7 @@ This project is first in a series of projects which works with coronavirus datab
 
 __________________________________________ABOUT THIS PROJECT_____________________________________
 - The databse used in this report is maintained by John Hopkin's University[https://www.jhu.edu/]
-- The database was last updated on 24-May-2020
+- The database was last updated on 10-June-2020
 - code is written in python and report is written with Latex
 
 ____________________FOLDER STRUCTURE_______________________

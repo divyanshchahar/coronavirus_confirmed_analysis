@@ -1,0 +1,18 @@
+
+\begin{thenomenclature} 
+\nomgroup{A}
+  \item [{$\overline{I}$}]\begingroup Average Infected\nomeqref {0}\nompageref{1}
+  \item [{$A_n$}]\begingroup Moving Average\nomeqref {0}\nompageref{1}
+  \item [{$G_t$}]\begingroup Growth Rate at time $t$\nomeqref {0}\nompageref{1}
+  \item [{$I_t$}]\begingroup Individual Infected at time $t$\nomeqref {0}\nompageref{1}
+  \item [{$N$}]\begingroup Total Population\nomeqref {0}\nompageref{1}
+  \item [{$R$}]\begingroup Reproduction Number\nomeqref {0}\nompageref{1}
+  \item [{$R_t$}]\begingroup Individual Removed at time $t$\nomeqref {0}\nompageref{1}
+  \item [{$S_t$}]\begingroup Individual Susceptible at time $t$\nomeqref {0}\nompageref{1}
+  \item [{$t$}]\begingroup Time in days\nomeqref {0}\nompageref{1}
+  \item [{x}]\begingroup Parameter Under Consideration\nomeqref {0}\nompageref{1}
+\nomgroup{B}
+  \item [{$\beta$}]\begingroup Diseaese Transmission Rate Constant\nomeqref {0}\nompageref{1}
+  \item [{$\gamma$}]\begingroup Recovery Rate\nomeqref {0}\nompageref{1}
+
+\end{thenomenclature}

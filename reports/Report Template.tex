@@ -13,6 +13,10 @@
 \usepackage[labelfont=bf,textfont=bf]{caption} % for having the captions in bold
 \usepackage{amsmath} %for equations
 \usepackage[hidelinks]{hyperref} % for adding hyperlinks (withouht ugly boxes)
+\usepackage{nomencl} % For Nomenclature 
+\makenomenclature
+\usepackage{amssymb} % symbols for nomenclature
+\usepackage{etoolbox} % For Creating Categories in Nomenclature
 
 %_______________________________________________________________________________
 
@@ -34,6 +38,16 @@
 \renewcommand{\footrulewidth}{0.8pt}
 }
 %_____________________________________________________________________
+
+
+%% This code creates the groups
+% -----------------------------------------
+\renewcommand\nomgroup[1]{%
+	\ifstrequal{#1}{A}{\item[\Large\bfseries{Greek Characters}]}{%
+	\ifstrequal{#1}{B}{\vspace{10pt} \item[\Large\bfseries{Roman Characters}]}{%
+	\ifstrequal{#1}{C}{\vspace{10pt} \item[\Large\bfseries{Acronyms}]}{}}}%
+}
+% -----------------------------------------
 
 
 \pagestyle{mypagestyle} % For Header and Footer
@@ -85,11 +99,28 @@
 
 \restoregeometry
 
+\nomenclature[A]{$N$}{Total Population}
+\nomenclature[A]{$t$}{Time in days}
+\nomenclature[A]{$S_t$}{Individual Susceptible at time $t$}
+\nomenclature[A]{$I_t$}{Individual Infected at time $t$}
+\nomenclature[A]{$R_t$}{Individual Removed at time $t$}
+\nomenclature[A]{$\overline{I}$}{Average Infected}
+\nomenclature[A]{$R$}{Reproduction Number}
+\nomenclature[A]{$A_n$}{Moving Average}
+\nomenclature[A]{x}{Parameter Under Consideration}
+\nomenclature[A]{$G_t$}{Growth Rate at time $t$}
+\nomenclature[B]{$\beta$}{Diseaese Transmission Rate Constant}
+\nomenclature[B]{$\gamma$}{Recovery Rate}
+
+\printnomenclature
+
+\pagebreak
+
 \section{Introduction}
-SARS-CoV-2 or Severe Acute Respiratory Syndrome related Coronavirs-2, is a virus that causes Covid-19, which is commonly known as Coronavirs. The virus originated in Wuhan, capital of Hubei Province of People's Republic of China, Covid-19 was classified as \textit{Pandemic} by World Health Organization on \textit{11-March-2020}. At the time of writing this report Coronavirus has infected infected 4996472 and killed 328115 individuals across 188 countries. 
+SARS-CoV-2 or Severe Acute Respiratory Syndrome related Coronavirs-2, is a virus that causes Covid-19, which is commonly known as Coronavirs. The virus originated in Wuhan, capital of Hubei Province of People's Republic of China, Covid-19 was classified as \textit{Pandemic} by World Health Organization on \textit{11-March-2020}. At the time of writing this report Coronavirus has infected infected 7360239 and killed 416201 individuals across 188 countries. 
 
 \subsection*{What is a Pandemic ?}
-We cannot proceed further without understanding what is classified as Pandemic or Pandemic Influenza. As per \cite{WHO_2010_1}, pandemic is the worldwide spread of a new disease. An influenza pandemic occurs when a new Influenza virus emerge and spreads around world and most people don't have immunity. However this could lead to misconceptions, because every season the cases of seasonal flu rises in  temperate southern and northern hemispheres, in a globally connected world, it also crosses international boundaries, but is not classified as Pandemic. As mentioned in \cite{WHO_2011}, during the 2009-2010 H1N1 influenza pandemic spread, influenza spread early in the temprate southern hemisphere but out of season in the northern hemisphere. This out of season spread was the reason that H1N1 was classified as influenza pandemic.
+Pandemic or Pandemic Influenza is described as follows. As per \cite{WHO_2010_1}, pandemic is the worldwide spread of a new disease. An influenza pandemic occurs when a new Influenza virus emerge and spreads around world and most people don't have immunity against it. However this could lead to misconceptions, because every season the cases of seasonal flu rises in  temperate southern and northern hemispheres, in a globally connected world, it also crosses international boundaries, but is not classified as Pandemic. As mentioned in \cite{WHO_2011}, during the 2009-2010 H1N1 influenza pandemic spread, influenza spread early in the temprate southern hemisphere but out of season in the northern hemisphere. This out of season spread was the reason that H1N1 was classified as influenza pandemic.
 \\
 \\
 Thus based on \cite{WHO_2010_1} and \cite{WHO_2011} we can say that an influenza pandemic is an unexpected worldwide transmission of a new disease to which the population has no immunity. 
@@ -109,25 +140,17 @@ Susceptible population comprises of individuals who have not contracted the infe
 \\
 Thus we can say that,
 $$ N_t = S_t + I_t + R_t $$
-
-where:
-$$ N_t = \text{Total Population}$$
-$$ t = \text{time in days} $$
 \\
-The most important parameter that comes from this model is basic reproduction number, denoted by $R_0$ .
-$$ R_0 = \frac{\beta S_0}{\gamma}$$
+The most important parameter that comes from this model is basic reproduction number, denoted by $R$ .
+$$ R = \frac{\beta S_0}{\gamma}$$
 \\
-where :
-$$\beta = \text{Disease Transmission Rate Coonstaant}$$
-$$ S_0 = \text{Individuals susceptible at t= 0}$$
-$$ \gamma = \text{Recovery Rate}$$
-If $R_0 > 1$, than it is an indication that every primary case is producing more than one secondry case, this situation indicates that infection will spread if checks are not out in place. If $R_0 < 1$ this indicates that every primary case ir resulting in lesser number of secondary cases, thus the infection will eventually die, even if no corrective measures are introduced.
+If $R > 1$, than it is an indication that every primary case is producing more than one secondry case, this situation indicates that infection will spread if checks are not put in place. If $R < 1$ this indicates that every primary case is resulting in lesser number of secondary cases, thus the infection will eventually die, even if no corrective measures are introduced.
 \\
 \\
 Even though $R_0$ can provide insights into weather the infection is spreading or not, we don't have the required data to calculate this parameter. Thus we will use some other parameters to evaluate the situation. These parameters will be discussed in more detail in the next section.
 
 \section{Parameters used for analysis}
-This report will only focus on analyzing the spread of infection. The data used in this report is a time series data taken from John Hopkins University's Coronavirus Database(last updated 20th May 2020)
+This report will only focus on analyzing the spread of infection. The data used in this report is a time series data taken from John Hopkins University's Coronavirus Database(last updated 10-June-2020)
 
 \subsection*{Average Cases}
 This parameters helps us normalize the total number of cases with the duration of infection(Number of days to reach $I$ cases)
@@ -138,8 +161,6 @@ Since the concerned data is a time series data, hence summation in this case rep
 \subsection*{Mooving Average}
 The concept of moving average is used in slightly different manner here.
 $$\displaystyle A_n = \frac{\sum_{i=n} ^{0} {x}}{t}$$
-where:
-$$ x = \text{parameter under consideration}$$
 
 \subsection*{Growth Rate}
 The number of confirmed cases could be a confusing when analyzing the situation as the total number of cases will only  have an upward trend. Thus to overcome this difficulty we will use the concept of growth rate. Growth Rate can be defined as the ratio of new cases on the present day to the ratio of new cases the previous day.
@@ -161,7 +182,7 @@ The database used in this report consists of 188 countries but we will limit the
 	\label{plot_confirmedcases}
 \end{figure}
 
-As can be seen in figure \ref{plot_confirmedcases} the number of confirmed cases in these ten countries exceed the global average. Even among the worst hit countries the number of cases in USA is exceptionally high. Number of confirmed cases is USA, which is at first place is ~12.224 times higher than Iran which is at the tenth place. There also exists a huge difference between USA and Russia, which is at second place. USA has ~5.027 times more cases as that of Russia. This goes on to reflect that the spread of Coronavirus in USA has a completly different magnitude than the rest of the world. 
+As can be seen in figure \ref{plot_confirmedcases} the number of confirmed cases in these ten countries exceed the global average. Even among the worst hit countries the number of cases in USA is exceptionally high. Number of confirmed cases is USA, which is at first place is ~10.752 times higher than Germany which is at the tenth place. There also exists a huge difference between USA and Brazil, which is at second place. USA has ~2.589 times more cases as that of Brazil. This goes on to reflect that the spread of Coronavirus in USA has a completly different magnitude than the rest of the world. 
 
 \begin{figure}[H]
 	\centering
@@ -173,7 +194,7 @@ As can be seen in figure \ref{plot_confirmedcases} the number of confirmed cases
 As mentioned in the previous section, that number of confirmed cases could be an elusive parameter. A country having higher number of confirmed cases might come across as having a more dire situation than a country which has lower number of confirmed cases. However, since infectious diseases follows an exponential curve hence the number of confirmed cases climb very quickly to higher numbers, hence normalizing the total number of cases with the duration can give an indirect insight into the growth rate of confirmed cases.
 \\
 \\
-As can be observed from figure \ref{plot_averagecases}, USA has the highest growth rate among the worst hit countries. USA and Brazil are the only countries where average number of confirmed cases is higher than the global average. If we compare figure \ref{plot_confirmedcases} and figure \ref{plot_averagecases}, we can observe even though Russia has higher number of confirmed cases, average cases in Russia are still lower than Brazil, this indicated that Brazil has a more aggressive growth rate than Russia.This analogy can be applied to other countries as well. Turkey has less cases than Spain, Italy, France, and Germany, but average number of cases in these countries is still lower than Turkey. Spain has the fifth highest number of confirmed cases but sixth highest average. Similar comment can be made for Italy. the largest discrepancy in the number of confirmed cases and average cases can be seen in the case of Turkey, Turkey is on the ninth place on the list of countries with highest number of confirmed cases, but the average number of confirmed cases is fourth highest in Turkey.
+As can be observed from figure \ref{plot_averagecases}, USA has the highest average number of cases among the worst hit countries. USA and Brazil are the only countries where average number of confirmed cases is higher than the global average. If we compare figure \ref{plot_confirmedcases} and figure \ref{plot_averagecases}, we can observe even though India has higher number of confirmed cases, average cases in India are still lower than Peru, this indicates that Peru has a more aggressive growth rate than India.This analogy can be applied to other countries as well. In Europe the first major outbreak was in Italy, which has seventh highest number of confirmed cases, ranks eight in terms of average cases. France and Germany are the only countries which has the ninth and tenth rank in terms of confirmed cases and and also have the same standing in terms of average number of cases.
 
 \begin{figure}[H]
 	\centering
@@ -182,8 +203,9 @@ As can be observed from figure \ref{plot_averagecases}, USA has the highest grow
 	\label{plot_caseprogression}
 \end{figure}
 
-In order to paint a more clear picture of the spread of infection, rise in the number of confirmed cases needs to be studied. From figure \ref{plot_caseprogression} we can observe that USA and Italy had same number of cases between March 15 and April 1, but the the spread of Coronavirus is much more aggressive in USA than in Itlay. Spain and Italy had the same number of cases near April 1, but as can be seen from figure \ref{plot_averagecases}, average number of cases in Spain are slightly higher than in Italy, hence as time progressed Spain developed more cases as compared to Italy. Between April 15 and May 1, number of confirmed cases in Spain register a slight dip, this could be the result of either erroneous reporting or erroneous testing. Also we can observe that between April 1 and April 15, number of cases in Brazil were slightly higher than the number of cases in Russia. Between April 1 and 15, a rapid rise in number of cases can be seen for Russia and Brazil. Near April 15 Russia and Brazil had almost the same number of cases but after this date a more aggressive increase can be seen for Russia.
-
+In order to paint a more clear picture of the spread of infection, rise in the number of confirmed cases needs to be studied. From figure \ref{plot_caseprogression} we can observe that USA and Italy had same number of cases between March and April, but the spread of Coronavirus is much more aggressive in USA than in Itlay. Brazil and Russia had the same number of cases between mid April and May, But Russia had a more agressive growth rate at this point of time hence as a result it developed more cases than Brazil. However Brazil ended up having more cases than Russia as between May and June, the spread of infection became more aggressive in Brazil than in Russia. A sudden spike in the number of cases can be observed for France between April and May. A similar pattern can be observed for Spain, where a small sharp decline can be observed  for Spain, between April and May, this could be attributed to error in reporting or testing. India had the same amount of cases as Peru between May and June, but near the end of June India overtook France, Germany, Italy and Spain.
+\\
+\\
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.5\linewidth]{./images/plot-4.pdf}
@@ -191,19 +213,11 @@ In order to paint a more clear picture of the spread of infection, rise in the n
 	\label{plot_newcases}
 \end{figure}
 
-As it has been mentioned before that total number of cases do not give a complete perspective of the situation. Hence, proceeding futher, number of new cases will be studied to better understand the rate of spread of Coronavirus. As can be seen from figure \ref{plot_newcases}, occurance of new cases in USA spiked after March 15, a steep rise in new cases can be seen from March 15 till April 1. Although this trend discontinued after April 1 and the pattern became more irregular. After April 1, several crests and troughs can be observed, although the pattern seems to be irregular but on a closer observation it can be seen that after March 15, the crests peak out to lower values and troughs fall to lower values, indicating a possible decline in the number of new cases. This could be an indicator that the measures taken to stop the spread of the Coronavirus seems to be working.
+As it has been mentioned before that total number of cases do not give a complete perspective of the situation. Hence, proceeding further, number of new cases will be studied to better understand the rate of spread of Coronavirus. As can be seen from figure \ref{plot_newcases}, occurrence of new cases in USA spiked after mid-March, a steep rise in new cases can be seen from mid of March till starting of April. 
+This trend discontinued after April 1 and the pattern became more irregular. After April 1, several crests and troughs can be observed, even though the pattern seems to be irregular, but on a closer observation it can be seen that after March 15, the crests peak out to lower values and troughs fall to lower values, indicating a possible decline in the number of new cases. This could be an indicator that the measures taken to stop the spread of the Coronavirus are working.
 \\
 \\
-Except for USA, Brazil, Russia and France, no other country reported more than 1000 cases in a single day. France has reported abrupt increase in the number of new cases which can be observed in the form of huge  spikes. All the countries except USA, Brazil and Russia show a similar pattern in which the occurance of new cases increases before decreasing. This is indicative of the fact that the measures taken to curb the spread of Coronavirus are working. We can also observe a peculiar feature in figure \ref{plot_caseprogression}, Spain seems to have negitive number of new cases this is not physically possible. As mentioned above, this might be due to erroneous reporting or erroneous testing.
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.5\linewidth]{./images/plot-5.pdf}
-	\caption{Mooving Average of New Cases over time}
-	\label{plot_newcasesMA}
-\end{figure} 
-
-Although figure \ref{plot_newcases} gives a perspective of how fast has Coronavirs spread through the countries, the plots fail to predict a clear trend, to overcome this challenge moving averages were used. In time series data, moving averages usually filter out the fluctuations and helps to discover hidden insights. As can be observed from figure \ref{plot_newcasesMA} that fluctuations still exist in plotted data. This could be attributed to the fact that here the concept of moving average is applied in a different way and time period choosen for the calculation is 1 day. Even though fluctuations are still present we can clearly observe the falling trend of new cases in USA. We can also observe the same phenomena for Spain. If we concentrate our attention to Russia we can observe that after May 1, there is a slight decrease in the moving average of new cases.
+Except for Spain, UK, Italy and Germany, no other country reported less than 10000 cases in a single day. France has reported abrupt increase in the number of new cases which can be observed in the form of huge  spikes. All the countries except USA, Brazil, India and Peru show a similar pattern in which the occurance of new cases increases before decreasing. This is indicative of the fact that the measures taken to curb the spread of Coronavirus are working. We can also observe a peculiar feature in figure \ref{plot_caseprogression}, Spain seems to have negitive number of new cases this is not physically possible. As mentioned above, this might be due to erroneous reporting or erroneous testing.
 
 \begin{figure}[H]
 	\centering
@@ -215,7 +229,7 @@ Although figure \ref{plot_newcases} gives a perspective of how fast has Coronavi
 As was mentioned in the previous section of this report, growth rate could be the best indicator of the situation. The plot originally generated had huge spikes which made it difficult to focus on the important range (0 to 1) of the growth rate. Hence the maximum values of Growth rate was capped to 2 and data for each country was plotted separately.
 \\
 \\
-As we can observe from figure \ref{plot_growthrate}, none of the country has managed to lower the Growth Rate below the critical value of 1. Oscillations close to the critical value can be observed for USA, Russia, Iran and for a short period of time in United Kingdom. Even though USA had the maximum number of confirmed cases, the growth rate observed after April 1 has dramatically decresed and oscillates very close to 1. Similar behavior can be seen with Russia after May 1. It can be observed that after May 1, variation in Growth Rate around the critical value is pronounced in USA than in Russia.Both Iran and Turkey have also managed to keep the Growth Rate close to critical value after April 1. In the month of April, Iran seem to have contained the spread of Coronavirus better than turkey, however by the starting of May, The variance in Growth Rate of Iran again seems to increase.
+As we can observe from figure \ref{plot_growthrate}, none of the country has managed to lower the Growth Rate below the critical value of 1. Oscillations close to the critical value can be observed for USA and Russia. Even though USA had the maximum number of confirmed cases, the growth rate observed after April 1 has dramatically decreased and oscillates very close to 1. Similar behavior can be seen with Russia after May 1. It can be observed that after May 1, variation in Growth Rate around the critical value is pronounced in USA than in Russia.Both India has also managed to keep the Growth Rate close to critical value after May 1.
 
 \begin{figure}[H]
 	\centering
@@ -224,7 +238,7 @@ As we can observe from figure \ref{plot_growthrate}, none of the country has man
 	\label{plot_growthrateMA}
 \end{figure}    
 
-As can be seen from figure \ref{plot_newcasesMA}, moving averages have eliminated irregularities when applied to growth rate. USA is the only country which has managed to keep the moving average below the critical value of 1. Although moving average evantually falls below 1 for all the countries, it can be observed that Turkey and Itlay are only two countries where no spikes in moving average of growth rate is observed.
+As can be seen from figure \ref{plot_growthrateMA}, moving averages have eliminated irregularities when applied to growth rate. USA and India are the only countries which has managed to keep the moving average below the critical value of 1. Although moving average eventually falls below 1 for all the countries, it can be observed that all the countries except India and USA have spikes in the moving average of Growth Rate which cross the critical value of 1.
 
 \section{Conclusion}
 
@@ -233,13 +247,10 @@ Based on the observations made in previous section, following conclusions can be
 	\item Coronavirus is highly contagious and the number of new cases can increase extreamly rapidly as seen in the case of USA.
 	\item Number of occurrence of new cases is a very strong indicator of evaluating the situation within a country
 	\item Tracking the number of new cases could give an insight of the situation, but growth rate could be a better indicator that provides more conclusive analysis
-	\item A better approach is needed to calculate the moving averages, time period needs to be adjusted for this calculation
-	\item  A drop in the number of new cases could be observed for each country, this indicates that preventative measures such as lock-downs are actually effective in preventing the spread of Coronavirus  
+	\item  A drop in the number of new cases could be observed for some countries, this indicates that preventative measures such as lock-downs are actually effective in preventing the spread of Coronavirus  
 \end{itemize}  
 
 \bibliographystyle{ieeetr}
 \bibliography{myrefrences}
-
-
 
 \end{document}

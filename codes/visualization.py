@@ -8,7 +8,7 @@
 #   -   Title of the plot
 # Output Arguments
 #   -   Horizontal Bar plot
-def plot_bar_h(x_values, refrence_value, ticklabels_y, label_x, label_y, filename_plt):
+def plot_bar_h(x_values, refrence_value, ticklabels_y, label_x, label_y, filename_plt, ofst_x):
 
     fig, ax = plt.subplots()
     ypos = np.arange(len(x_values))
@@ -18,7 +18,7 @@ def plot_bar_h(x_values, refrence_value, ticklabels_y, label_x, label_y, filenam
     plt.legend(fontsize=7)
 
     # X-axis operations
-    plt.xticks(fontsize=7) # controlling the foent size of y-tick labells
+    plt.xticks(fontsize=7, ha='center') # controlling the foent size of y-tick labells
     ax.set_xlabel(label_x, fontsize=10)
 
     # Y-axis operations
@@ -33,12 +33,14 @@ def plot_bar_h(x_values, refrence_value, ticklabels_y, label_x, label_y, filenam
 
     # Loop to put up labells
     for i in range(0,len(ypos)):
-        plt.text(x=x_values[i], y=ypos[i], s=x_values[i], fontsize=7)
+        plt.text(x=x_values[i] + ofst_x, y=ypos[i], s=x_values[i], fontsize=7)
 
     mng = plt.get_current_fig_manager()
     mng.window.state('zoomed')
 
     plt.savefig(filename_plt, bbox_inches='tight')
+
+    plt.close(fig)
 
 
 # FUNCTION TO PLOT LINE GRAPHS
@@ -66,11 +68,16 @@ def lineplotter(x_values, y_values, legend_plt, x_label, y_label, filename_plt):
     date_format = mpl_dates.DateFormatter('%b, %d %y')
     plt.gcf().autofmt_xdate()
 
+    # Dealing with Dates
+    months = mpl_dates.MonthLocator()
+    date_format = mpl_dates.DateFormatter('%b, %d %y')
+    ax.xaxis.set_major_formatter(date_format)
+    ax.xaxis.set_major_locator(months)
+    plt.gcf().autofmt_xdate()
 
     # X-axis Operations
-    plt.xticks(fontsize=7)
+    plt.xticks(fontsize=7, rotation=0, ha='center')
     ax.set_xlabel(x_label, fontsize=10)
-    ax.xaxis.set_major_formatter(date_format)
 
     # Y-Axis Operations
     plt.yticks(fontsize=7)
@@ -80,12 +87,14 @@ def lineplotter(x_values, y_values, legend_plt, x_label, y_label, filename_plt):
     ax.spines['right'].set_visible(False) # eliminating right border
     ax.spines['top'].set_visible(False) # eliminating top border
 
-    plt.legend(fontsize=7)
+    plt.legend(fontsize=7, ncol=5, loc='center', bbox_to_anchor=(0.5, 1.05))  # Legend
 
     # maximising the graph
     mng = plt.get_current_fig_manager()
     mng.window.state('zoomed')
     plt.savefig(filename_plt, bbox_inches='tight')
+
+    plt.close(fig)
 
 
 # FUNCTION TO PLOT LINE GRAPHS (SUBPLOTS)
@@ -121,9 +130,11 @@ def lineplotter_subplot(r_plt, c_plt, x_values, y_values, legend_plt, filename_p
         ax[r, c].legend(fontsize=7) # legend
 
         # Dealing with Dates
+        months = mpl_dates.MonthLocator()
         date_format = mpl_dates.DateFormatter('%b, %d %y')
-        plt.gcf().autofmt_xdate()
         ax[r, c].xaxis.set_major_formatter(date_format)
+        ax[r, c].xaxis.set_major_locator(months)
+        plt.gcf().autofmt_xdate()
 
         # Eliminating the spine
         ax[r, c].spines['right'].set_visible(False)  # eliminating right border
@@ -139,9 +150,11 @@ def lineplotter_subplot(r_plt, c_plt, x_values, y_values, legend_plt, filename_p
     mng = plt.get_current_fig_manager()
     mng.window.state('zoomed')
 
-    plt.subplots_adjust(left=0.03, right=0.97, top=0.98, bottom=0.08, hspace=0.16, wspace=0.1) # adjusting spaces
+    plt.subplots_adjust(left=0.03, right=0.97, top=0.98, bottom=0.08, hspace=0.16, wspace=0.1)  # adjusting spaces
 
-    plt.savefig(filename_plt, bbox_inches='tight') # saving plots
+    plt.savefig(filename_plt, bbox_inches='tight')  # saving plots
+
+    plt.close(fig)
 
 
 # FUNCTION TO STRIP OFF ZEROS
@@ -173,6 +186,46 @@ def zerostrip(df, filtervalues):
                     firstzero = False
             x_values.append(lst2)
             y_values.append(lst1)
+    return x_values, y_values
+
+
+# FUNCTION TO STRIP OFF ZEROS
+#
+# Input Arguments
+#   -   Database from which negitive values needs to stripped from the begining and from the end
+#   -   List of countries for which above mentioned operation needs to be performed
+# Output Arguments
+#   -   List of Numbers after stripping the zeros (list of lists)
+#   -   List of Dates(the dates for which zeros are removed are droped) (list of lists)
+def negstrip(df, filtervalues):
+    dates = df.drop(['Country'], axis=1).columns.values.tolist()  # extracting dates
+    df = df[df.Country.isin(filtervalues)]  # filtering required values of the worst hit countries
+
+    x_values = []  # List to hold final values after stripping
+    y_values = []  # List to hold final dates after stripping zeros
+    str_index = []  # starting point of the list
+    end_index = []  # ending point of list
+
+    for i in filtervalues:
+        df_temp = df[df['Country'] == i].values.tolist()
+        for k in df_temp:
+            l = len(k)
+            firstpositive = False
+            lastpositive = False
+            for p in range(1, l - 1):
+                if (k[p] > 0) & (firstpositive == False):
+                    str_index.append(p)
+                    s = p
+                    firstpositive = True
+                if ((k[p] > 0) & (k[p + 1] < 0)) & (lastpositive == False):
+                    end_index.append(p)
+                    e = p
+                    lastpositive = True
+                if (p == l-2) & (lastpositive == False):
+                    e = l
+
+            x_values.append(dates[s - 1:e - 1])
+            y_values.append(k[s:e])
     return x_values, y_values
 
 
@@ -267,8 +320,6 @@ df_coronaC_newcases = pd.read_csv('coronavirus_newcases.csv') # Confirmed New Ca
 df_coronaC_newcases_cummulativeaverage = pd.read_csv('coronavirus_newcases_cummulativeaverage.csv') # Cummulative Average of New Cases
 df_coronaC_newcases_growthrate = pd.read_csv('coronavirus_newcases_growthrate.csv') # Growth Rate of New Cases
 df_coronaC_newcases_growthrate_cummulativeaverage = pd.read_csv('coronavirus_newcases_growthrate_cummulativeaverage.csv') # Cummulative Average of Growth Rate of New Cases
-df_coronaC_newcases_percentgrowth = pd.read_csv('coronavirus_newcases_percentgrowth.csv')
-df_coronaC_newcases_percentgrowth_cummulativeaverage = pd.read_csv('coronavirus_newcases_percentgrowth_cummulativeaverage.csv')
 
 #_______________________________________________________________________________________________________________________________________#
 
@@ -292,18 +343,18 @@ countries_P1 = df_coronaC_worstaffected['Country'].values.tolist() # list of cou
 df_temp = df_coronaC_confirmedcases_average[df_coronaC_confirmedcases_average.Country.isin(countries_P1)]
 df_temp = df_temp.sort_values('average_cases', ascending=False)
 globalmean_averagecases = int(st.mean(df_temp['average_cases'].values.tolist()))
+countries_P1 = df_temp['Country'].values.tolist()
 
 # For Plot 3 - [LINE GRAPH] - Number of Cases in Worst Affected countries
 x_values_P3_temp, y_values_P3 = zerostrip(df_coronaC, countries_P1)
 x_values_P3 = datesorter(x_values_P3_temp)
-
 
 # For Plot 4 - [LINE GRAPH] - New Cases in countries Worst Affected by Coronavirus
 x_values_P4_temp, y_values_P4 = zerostrip(df_coronaC_newcases, countries_P1)
 x_values_P4 = datesorter(x_values_P4_temp)
 
 # For Plot 5 - [LINE GRAPH] - Cummulative Average of New Cases in Worst Hit Countries
-x_values_P5_temp, y_values_P5 = zerostrip(df_coronaC_newcases_cummulativeaverage, countries_P1)
+x_values_P5_temp, y_values_P5 = negstrip(df_coronaC_newcases_cummulativeaverage, countries_P1)
 x_values_P5 = datesorter(x_values_P5_temp)
 
 # For Plot 6 - [LINE GRAPH] - Growth Rate of New Cases in Worst Affected Countries
@@ -311,16 +362,8 @@ x_values_P6_temp, y_values_P6 = zerostrip(df_coronaC_newcases_growthrate, countr
 x_values_P6 = datesorter(x_values_P6_temp)
 
 # For Plot 7 - [LINE GRAPH] - Cummulative Average of Growth Rate of New Cases in Worst Affected Countries
-x_values_P7_temp, y_values_P7 = zerostrip(df_coronaC_newcases_growthrate_cummulativeaverage, countries_P1)
+x_values_P7_temp, y_values_P7 = negstrip(df_coronaC_newcases_growthrate_cummulativeaverage, countries_P1)
 x_values_P7 = datesorter(x_values_P7_temp)
-
-# For Plot 8 - LINE GRAPH] - Percentage Growth Rate of Countries Worst Affected by Coronavirus
-x_values_P8_temp, y_values_P8 = zerostrip(df_coronaC_newcases_percentgrowth, countries_P1)
-x_values_P8 = datesorter(x_values_P8_temp)
-
-# For Plot 9 - [LINE GRAPH] - Cummulative Average of Percent Growth Rate of Countries Worst Affected by Coronavirus
-x_values_P9_temp, y_values_P9 = zerostrip(df_coronaC_newcases_growthrate_cummulativeaverage, countries_P1)
-x_values_P9 = datesorter(x_values_P9_temp)
 
 #____________________________________________________________________________________________________________________________________#
 
@@ -328,15 +371,15 @@ x_values_P9 = datesorter(x_values_P9_temp)
 ###______________________________________________________________________________________Plotting the dataset____________________________________________________________________________________________________###
 
 # Plot 1[HORIZONTAL BAR PLOT] - Countries worst affected
-plot_bar_h(df_coronaC_worstaffected[lastday].values.tolist(), globalmean_confirmedcases,df_coronaC_worstaffected['Country'].values.tolist(), 'Confirmed Cases', 'Countries', 'plot-1.pdf')
+plot_bar_h(df_coronaC_worstaffected[lastday].values.tolist(), globalmean_confirmedcases,df_coronaC_worstaffected['Country'].values.tolist(), 'Confirmed Cases', 'Countries', 'plot-1.pdf', 17500)
 
 # Plot 2[HORZONTAL BAR PLOT] - AveAverage Cases Reported Per Day in Countries Worst Affected by Coronavirus
-plot_bar_h(df_temp['average_cases'].values.tolist(), globalmean_averagecases, df_temp['Country'].values.tolist(), 'Average Cases', 'Countries', 'plot-2.pdf')
+plot_bar_h(df_temp['average_cases'].values.tolist(), globalmean_averagecases, df_temp['Country'].values.tolist(), 'Average Cases', 'Countries', 'plot-2.pdf', 100)
 
 # Plot 3[LINE PLOT] - Number of Cases in Worst Affected countries
 lineplotter(x_values_P3, y_values_P3, countries_P1, 'Dates', 'Cases', 'plot-3.pdf')
 
-# Plot 4[LINE GRAPH] - New Cases in countries Worst Affected by Coronavirus
+# # Plot 4[LINE GRAPH] - New Cases in countries Worst Affected by Coronavirus
 lineplotter(x_values_P4, y_values_P4, countries_P1, 'Dates', 'New Cases', 'plot-4.pdf')
 
 # Plot 5[LINE GRAPH] - Cummulative Average of New Cases in Worst Hit Countries
@@ -348,8 +391,3 @@ lineplotter_subplot(5, 2, x_values_P6, y_values_P6, countries_P1, 'plot-6.pdf')
 # Plot 7 - [LINE GRAPH] - Cummulative Average of Growth Rate of New Cases in Worst Affected Countries
 lineplotter_subplot(5, 2, x_values_P7, y_values_P7, countries_P1, 'plot-7.pdf')
 
-# Plot 8 - [LINE GRAPH] - Percentage Growth Rate of Countries Worst Affected by Coronavirus
-lineplotter(x_values_P8, y_values_P8, countries_P1, 'Dates', 'Percentage Growth', 'plot-8.pdf')
-
-# Plot 9 - [LINE GRAPH] - Percentage Growth Rate of Countries Worst Affected by Coronavirus
-lineplotter(x_values_P9, y_values_P9, countries_P1, 'Dates', 'Moving Average', 'plot-9.pdf')

@@ -17,14 +17,18 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1atJqYnDBiYEEwpkouP7eKEhuJF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -161,8 +165,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.visualization" />
-        <item itemvalue="Python.experiment" />
         <item itemvalue="Python.calculations" />
+        <item itemvalue="Python.experiment" />
         <item itemvalue="Python.visualization _experiment (1)" />
       </list>
     </recent_temporary>
@@ -185,30 +189,38 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1589375754080" />
-    <state width="1515" height="210" key="GridCell.Tab.0.bottom" timestamp="1590176657446">
+    <state width="1515" height="205" key="GridCell.Tab.0.bottom" timestamp="1591965585912">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1590176657446" />
-    <state width="1515" height="210" key="GridCell.Tab.0.center" timestamp="1590176657446">
+    <state width="1515" height="205" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1591965585912" />
+    <state width="1515" height="205" key="GridCell.Tab.0.center" timestamp="1591965585912">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1590176657446" />
-    <state width="1515" height="210" key="GridCell.Tab.0.left" timestamp="1590176657446">
+    <state width="1515" height="205" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1591965585912" />
+    <state width="1515" height="205" key="GridCell.Tab.0.left" timestamp="1591965585912">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1590176657446" />
-    <state width="1515" height="210" key="GridCell.Tab.0.right" timestamp="1590176657446">
+    <state width="1515" height="205" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1591965585912" />
+    <state width="1515" height="205" key="GridCell.Tab.0.right" timestamp="1591965585912">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1515" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1590176657446" />
+    <state width="1515" height="205" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1591965585912" />
+    <state x="277" y="55" key="SettingsEditor" timestamp="1590419233332">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="277" y="55" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1590419233332" />
     <state width="585" height="446" key="SwitcherDM" timestamp="1589118881067">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="585" height="446" key="SwitcherDM/0.0.1536.824@0.0.1536.824" timestamp="1589118881067" />
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1590180743133">
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1591462008009">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1590180743133" />
+    <state x="465" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1591462008009" />
+    <state x="760" y="80" width="774" height="803" key="dock-window-1" timestamp="1591883848415">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="760" y="80" width="774" height="803" key="dock-window-1/0.0.1536.824@0.0.1536.824" timestamp="1591883848415" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1589118555627">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

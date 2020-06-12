@@ -1,0 +1,12 @@
+\nomenclatureentry{A$N$@[{$N$}]\begingroup Total Population\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$t$@[{$t$}]\begingroup Time in days\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$S_t$@[{$S_t$}]\begingroup Individual Susceptible at time $t$\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$I_t$@[{$I_t$}]\begingroup Individual Infected at time $t$\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$R_t$@[{$R_t$}]\begingroup Individual Removed at time $t$\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$\overline{I}$@[{$\overline{I}$}]\begingroup Average Infected\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$R$@[{$R$}]\begingroup Reproduction Number\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$A_n$@[{$A_n$}]\begingroup Moving Average\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{Ax@[{x}]\begingroup Parameter Under Consideration\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{A$G_t$@[{$G_t$}]\begingroup Growth Rate at time $t$\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{B$\beta$@[{$\beta$}]\begingroup Diseaese Transmission Rate Constant\nomeqref {0}|nompageref}{1}
+\nomenclatureentry{B$\gamma$@[{$\gamma$}]\begingroup Recovery Rate\nomeqref {0}|nompageref}{1}
