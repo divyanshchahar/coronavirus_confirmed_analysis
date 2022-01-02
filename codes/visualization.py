@@ -8,6 +8,8 @@
 #   -   Title of the plot
 # Output Arguments
 #   -   Horizontal Bar plot
+
+
 def plot_bar_h(x_values, refrence_value, ticklabels_y, label_x, label_y, filename_plt, ofst_x):
 
     fig, ax = plt.subplots()
@@ -35,9 +37,17 @@ def plot_bar_h(x_values, refrence_value, ticklabels_y, label_x, label_y, filenam
     for i in range(0,len(ypos)):
         plt.text(x=x_values[i] + ofst_x, y=ypos[i], s=x_values[i], fontsize=7)
 
-    mng = plt.get_current_fig_manager()
-    mng.window.state('zoomed')
+    # mng = plt.get_current_fig_manager()
+    # mng.window.state('zoomed')
+    #
+    # plt.savefig(filename_plt, bbox_inches='tight')
+    #
+    # plt.close(fig)
 
+    # plt.show()
+
+    mng = matplotlib.pyplot.get_current_fig_manager()
+    mng.window.showMaximized()
     plt.savefig(filename_plt, bbox_inches='tight')
 
     plt.close(fig)
@@ -90,11 +100,20 @@ def lineplotter(x_values, y_values, legend_plt, x_label, y_label, filename_plt):
     plt.legend(fontsize=7, ncol=5, loc='center', bbox_to_anchor=(0.5, 1.05))  # Legend
 
     # maximising the graph
-    mng = plt.get_current_fig_manager()
-    mng.window.state('zoomed')
+    # mng = plt.get_current_fig_manager()
+    # mng.window.state('zoomed')
+    # plt.savefig(filename_plt, bbox_inches='tight')
+
+    # plt.close(fig)
+
+    mng = matplotlib.pyplot.get_current_fig_manager()
+    mng.window.showMaximized()
     plt.savefig(filename_plt, bbox_inches='tight')
 
     plt.close(fig)
+
+
+
 
 
 # FUNCTION TO PLOT LINE GRAPHS (SUBPLOTS)
@@ -147,14 +166,20 @@ def lineplotter_subplot(r_plt, c_plt, x_values, y_values, legend_plt, filename_p
             c += 1
 
     # Zooming the Plots
-    mng = plt.get_current_fig_manager()
-    mng.window.state('zoomed')
+    # mng = plt.get_current_fig_manager()
+    # mng.window.state('zoomed')
+
+    mng = matplotlib.pyplot.get_current_fig_manager()
+    mng.window.showMaximized()
+    plt.savefig(filename_plt, bbox_inches='tight')
 
     plt.subplots_adjust(left=0.03, right=0.97, top=0.98, bottom=0.08, hspace=0.16, wspace=0.1)  # adjusting spaces
 
     plt.savefig(filename_plt, bbox_inches='tight')  # saving plots
 
     plt.close(fig)
+
+    # plt.show()
 
 
 # FUNCTION TO STRIP OFF ZEROS
@@ -305,11 +330,13 @@ def listsorter(l):
 # MAIN BODY OF THE PROGRAM
 # Importing Libraries
 import pandas as pd
+import matplotlib.pyplot
 import matplotlib.pyplot as plt
 from matplotlib import dates as mpl_dates
 import numpy as np
 from datetime import datetime
 import statistics as st
+
 
 
 ####_______________________________________________________ Reading the Database______________________________________________________###
@@ -324,7 +351,7 @@ df_coronaC_newcases_growthrate_cummulativeaverage = pd.read_csv('coronavirus_new
 #_______________________________________________________________________________________________________________________________________#
 
 
-###_________________________________________________Creating New Database_and lists__________________________________________________________###
+###_________________________________________________Creating New Database and lists__________________________________________________________###
 
 # For Plot 1 - [HORIZONTAL BAR GRAPH] - Countries Worst Affected by Coronavirus (in terms of confirmed cases)
 countries = df_coronaC['Country'].values.tolist() # list of countries from original data
@@ -390,4 +417,3 @@ lineplotter_subplot(5, 2, x_values_P6, y_values_P6, countries_P1, 'plot-6.pdf')
 
 # Plot 7 - [LINE GRAPH] - Cummulative Average of Growth Rate of New Cases in Worst Affected Countries
 lineplotter_subplot(5, 2, x_values_P7, y_values_P7, countries_P1, 'plot-7.pdf')
-
